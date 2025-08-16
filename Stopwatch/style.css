@@ -1,0 +1,25 @@
+#display {
+    font-size: 150px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+#button {
+    font-size: 20px;
+    margin: 5px;
+    text-align: center;
+    color: aliceblue;
+}
+button {
+    background-color: black;
+    color: gray;
+    width: 125px;
+    height: 45px;
+    font-size: 20px;
+}
+.up-title {
+    text-align: center;
+    color: white;
+}
+body{
+    background-color: darkblue;
+}
