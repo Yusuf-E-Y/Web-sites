@@ -1,10 +1,10 @@
 let minutes = 0;
 let seconds = 0;
 let hours = 0;
-let interval = null; // Kronometreyi durdurmak için
+let interval = null; // Empty values
 
 function updateDisplay() {
-    // Eğer 0.0 formatında göstermek istersen:
+    // show the clock 
     let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
     let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
     let displayHours = hours < 10 ? '0' + hours : hours;
@@ -13,7 +13,7 @@ function updateDisplay() {
 }
 
 function startTimer() {
-    if (interval) return; // Eğer zaten çalışıyorsa tekrar başlatma
+    if (interval) return; //if it is working, do not restart it
     interval = setInterval(() => {
         seconds++;
         if (seconds === 60) {
@@ -25,8 +25,8 @@ function startTimer() {
             hours++
         }
 
-        updateDisplay(); // Ekranı güncelle
-    }, 1000); // Her 1 saniye
+        updateDisplay(); // Updtae screen
+    }, 1000); // 1 seconds
 }
 
 function stopTimer() {
