@@ -16,11 +16,11 @@ function startTimer() {
     if (interval) return; //if it is working, do not restart it
     interval = setInterval(() => {
         seconds++;
-        if (seconds === 60) {
+        if (seconds === 60) { //second settings
             seconds = 0;
             minutes++;
         }
-        if (minutes === 60){
+        if (minutes === 60){ //minute settings
             minutes = 0;
             hours++
         }
