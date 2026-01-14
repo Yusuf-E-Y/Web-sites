@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNAKE • PREMIUM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <div class="score-board">
+                <div class="score-item">
+                    <span class="label">SCORE</span>
+                    <span class="value" id="score">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="label">HIGH SCORE</span>
+                    <span class="value" id="high-score">0</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="canvas-wrapper">
+            <canvas id="game-canvas" width="600" height="600"></canvas>
+            <div id="start-screen" class="overlay">
+                <h1>SNAKE</h1>
+                <p>Press any key to start</p>
+            </div>
+            <div id="game-over-screen" class="overlay hidden">
+                <h1>GAME OVER</h1>
+                <p class="final-score">Score: <span id="final-score-val">0</span></p>
+                <button id="restart-btn">Try Again</button>
+            </div>
+        </div>
+
+        <div class="controls-hint">
+            Use <span class="key">WASD</span> or <span class="key">Arrows</span> to move
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
