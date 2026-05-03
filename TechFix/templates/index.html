@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFix Servis — Tamir Talebi</title>
+    <meta name="description" content="TechFix teknik servis — bilgisayar ve telefon tamiri için tamir talebi oluşturun.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <header class="hero">
+            <div class="logo">
+                <span class="logo-icon">TF</span>
+                <h1>TechFix <span class="highlight">Servis</span></h1>
+            </div>
+            <p class="subtitle">Bilgisayar ve telefon tamirinde guvenilir cozum ortaginiz</p>
+        </header>
+
+        <!-- Form Card -->
+        <main class="card form-card">
+            <h2>Tamir Talebi Olustur</h2>
+            <p class="card-desc">Cihazinizla ilgili bilgileri asagidaki formu doldurarak bize iletin.</p>
+
+            <form action="/talep-olustur" method="POST" id="talepForm">
+                <div class="form-group">
+                    <label for="ad_soyad">Ad Soyad</label>
+                    <input type="text" id="ad_soyad" name="ad_soyad" placeholder="Orn: Ahmet Yilmaz" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefon">Telefon Numarasi</label>
+                    <input type="tel" id="telefon" name="telefon" placeholder="Orn: 0532 123 45 67" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cihaz">Cihaz Turu</label>
+                    <select id="cihaz" name="cihaz" required>
+                        <option value="" disabled selected>Seciniz...</option>
+                        <option value="Telefon">Telefon</option>
+                        <option value="Bilgisayar">Bilgisayar</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sorun">Sorun Aciklamasi</label>
+                    <textarea id="sorun" name="sorun" rows="4" placeholder="Cihazinizdaki sorunu kisaca aciklayin..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <span>Talep Gonder</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
+        </main>
+
+        <footer>
+            <p>2026 TechFix Servis — Tum haklari saklidir.</p>
+        </footer>
+    </div>
+</body>
+</html>

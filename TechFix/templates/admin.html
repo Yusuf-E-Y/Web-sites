@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yonetim Paneli — TechFix Servis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container admin-container">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="logo">
+                <span class="logo-icon">TF</span>
+                <h1>TechFix <span class="highlight">Panel</span></h1>
+            </div>
+            <a href="/" class="btn btn-outline btn-sm" id="backToHome">Ana Sayfa</a>
+        </header>
+
+        <!-- Istatistikler -->
+        <section class="stats-row">
+            <div class="stat-card">
+                <span class="stat-number">{{ talepler | length }}</span>
+                <span class="stat-label">Toplam Talep</span>
+            </div>
+            <div class="stat-card stat-bekliyor">
+                <span class="stat-number">{{ talepler | selectattr('durum', 'equalto', 'Bekliyor') | list | length }}</span>
+                <span class="stat-label">Bekliyor</span>
+            </div>
+            <div class="stat-card stat-tamirde">
+                <span class="stat-number">{{ talepler | selectattr('durum', 'equalto', 'Tamirde') | list | length }}</span>
+                <span class="stat-label">Tamirde</span>
+            </div>
+            <div class="stat-card stat-hazir">
+                <span class="stat-number">{{ talepler | selectattr('durum', 'equalto', 'Hazır') | list | length }}</span>
+                <span class="stat-label">Hazir</span>
+            </div>
+        </section>
+
+        <!-- Filtre & Arama -->
+        <section class="toolbar">
+            <div class="filter-group">
+                <a href="/admin" class="btn btn-filter {% if not durum_filtre %}active{% endif %}" id="filterAll">Tumu</a>
+                <a href="/admin?durum=Bekliyor" class="btn btn-filter {% if durum_filtre == 'Bekliyor' %}active{% endif %}" id="filterBekliyor">
+                    <span class="dot dot-bekliyor"></span> Bekliyor
+                </a>
+                <a href="/admin?durum=Tamirde" class="btn btn-filter {% if durum_filtre == 'Tamirde' %}active{% endif %}" id="filterTamirde">
+                    <span class="dot dot-tamirde"></span> Tamirde
+                </a>
+                <a href="/admin?durum=Hazır" class="btn btn-filter {% if durum_filtre == 'Hazır' %}active{% endif %}" id="filterHazir">
+                    <span class="dot dot-hazir"></span> Hazir
+                </a>
+            </div>
+            <form class="search-form" action="/admin" method="GET" id="searchForm">
+                {% if durum_filtre %}
+                <input type="hidden" name="durum" value="{{ durum_filtre }}">
+                {% endif %}
+                <input type="text" name="ara" value="{{ arama }}" placeholder="Isimle ara..." class="search-input" id="searchInput">
+                <button type="submit" class="btn btn-search" id="searchBtn">Ara</button>
+            </form>
+        </section>
+
+        <!-- Tablo -->
+        <section class="table-wrapper card">
+            {% if talepler | length == 0 %}
+            <div class="empty-state">
+                <span class="empty-icon">Bos</span>
+                <p>Henuz talep bulunmuyor.</p>
+            </div>
+            {% else %}
+            <div class="table-scroll">
+                <table id="taleplerTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ad Soyad</th>
+                            <th>Telefon</th>
+                            <th>Cihaz</th>
+                            <th>Sorun</th>
+                            <th>Durum</th>
+                            <th>Tarih</th>
+                            <th>Islem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for talep in talepler %}
+                        <tr>
+                            <td class="cell-id">{{ talep['id'] }}</td>
+                            <td class="cell-name">{{ talep['ad_soyad'] }}</td>
+                            <td class="cell-phone">{{ talep['telefon'] }}</td>
+                            <td class="cell-device">{{ talep['cihaz'] }}</td>
+                            <td class="cell-issue">{{ talep['sorun'] }}</td>
+                            <td class="cell-status">
+                                <form action="/durum-guncelle" method="POST" class="status-form">
+                                    <input type="hidden" name="id" value="{{ talep['id'] }}">
+                                    <select name="durum" onchange="this.form.submit()" class="status-select status-{{ talep['durum'] | lower | replace('ı', 'i') }}">
+                                        <option value="Bekliyor" {% if talep['durum'] == 'Bekliyor' %}selected{% endif %}>Bekliyor</option>
+                                        <option value="Tamirde" {% if talep['durum'] == 'Tamirde' %}selected{% endif %}>Tamirde</option>
+                                        <option value="Hazır" {% if talep['durum'] == 'Hazır' %}selected{% endif %}>Hazir</option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td class="cell-date">{{ talep['tarih'][:16] }}</td>
+                            <td class="cell-action">
+                                <form action="/talep-sil" method="POST" onsubmit="return confirm('Bu talebi silmek istediginize emin misiniz?')">
+                                    <input type="hidden" name="id" value="{{ talep['id'] }}">
+                                    <button type="submit" class="btn btn-delete" title="Sil">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </section>
+
+        <footer>
+            <p>2026 TechFix Servis — Yonetim Paneli</p>
+        </footer>
+    </div>
+</body>
+</html>
