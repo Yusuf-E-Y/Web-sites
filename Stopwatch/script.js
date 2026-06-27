@@ -25,7 +25,7 @@ function startTimer() {
             hours++
         }
 
-        updateDisplay(); // Updtae screen
+        updateDisplay(); // Update screen
     }, 1000); // 1 seconds
 }
 
