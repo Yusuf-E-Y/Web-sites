@@ -184,7 +184,7 @@ document.addEventListener('keydown', (e) => {
     }
 
     if (!isGameRunning) return;
-
+    //control commands
     switch (e.key) {
         case 'ArrowUp':
         case 'w':
